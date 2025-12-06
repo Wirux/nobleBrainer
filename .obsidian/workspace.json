@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "patterns/opencode/mcp_sanitization_rules.md",
+                "file": "airflow/pattern_airflow_task_group.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "mcp_sanitization_rules"
+              "title": "pattern_airflow_task_group"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "patterns/opencode/mcp_sanitization_rules.md",
+                "file": "airflow/pattern_airflow_task_group.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for mcp_sanitization_rules"
+              "title": "Backlinks for pattern_airflow_task_group"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "patterns/opencode/mcp_sanitization_rules.md",
+                "file": "airflow/pattern_airflow_task_group.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from mcp_sanitization_rules"
+              "title": "Outgoing links from pattern_airflow_task_group"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "patterns/opencode/mcp_sanitization_rules.md",
+                "file": "airflow/pattern_airflow_task_group.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of mcp_sanitization_rules"
+              "title": "Outline of pattern_airflow_task_group"
             }
           }
         ]
@@ -185,10 +185,15 @@
   },
   "active": "478f2d080397622e",
   "lastOpenFiles": [
+    "airflow/core/pattern_airflow_generic_dag_factory.md",
+    "airflow/pattern_airflow_task_group.md",
+    "patterns/airflow",
+    "Airflow Task Groups and Pools.md",
+    "dag/Airflow_Task_Groups_and_Work_Pools.md",
+    "meta/opencode/mcp_sanitization_rules.md",
     "README.md",
-    "patterns/opencode/mcp_output.md",
-    "patterns/opencode/mcp_entry.md",
-    "patterns/opencode/mcp_sanitization_rules.md",
+    "meta/opencode/mcp_output.md",
+    "meta/opencode/mcp_entry.md",
     "patterns/opencode/mcp_output.md~",
     "patterns/opencode/generic_mcp_entry.md",
     "patterns/opencode/generic_mcp_sanitization_rules.md",
@@ -198,11 +203,10 @@
     "patterns/opencode/00_system_prompt.md~",
     "patterns/opencode/02_sanitization_rules.md",
     "patterns/opencode/01_output_template.md",
-    "patterns/opencode",
-    "patterns",
+    "meta/opencode",
+    "meta",
     "dag/Generic DAG Example.md",
-    "dag/core/generic_dag_factory.md",
-    "dag/core",
-    "dag"
+    "airflow/core",
+    "airflow"
   ]
 }
