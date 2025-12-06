@@ -1,149 +1,116 @@
 ---
-id: generic_dag_factory
+id: facade00-fact-0000-0000-000000000001
 aliases: []
 tags:
-  - core
+  - opencode-generated
+  - airflow
+  - python
   - dag-factory
-  - template
-description: Canonical generic DAG factory used as the primary scaffold for generating Airflow DAGs across domains.
-mcp_id: generic_dag_factory
-title: Generic DAG Factory
+description: A pattern for generating multiple Airflow DAGs dynamically using a factory function and centralized configuration to avoid late binding issues.
+language: python
+title: Generic DAG Factory with Environment Configuration
+type: pattern
 ---
 
-# Generic DAG Factory
+# Generic DAG Factory with Environment Configuration
 
-## Purpose
+## Context & Problem
+* **Problem:** Creating multiple similar Airflow DAGs (e.g., for different tenants or tables) often leads to code duplication. Using loops to generate DAGs can cause "late binding" issues where all DAGs use the values of the last iteration.
+* **Scope:** Covers the structure of a DAG factory function, centralized environment/DAG configuration, and the generation loop.
 
-The **Generic DAG Factory** is the canonical scaffold used to generate Airflow DAGs from declarative configuration.  
-It is intentionally **provider-agnostic** and serves as the **foundation** for domain-specific task builders (BigQuery, Dataflow, dbt, batch pipelines, streaming, etc.).
+## Conceptual Solution
+Use a **Factory Function** to encapsulate the DAG definition. Pass all dynamic values (company names, table names, project IDs) as arguments to this function. This "freezes" the variables for each DAG instance, preventing late binding. Centralize configuration in `DAG_DEFINITIONS` (per-DAG settings) and `ENV_CONFIGS` (per-environment settings) maps to keep code clean and maintainable.
 
-This pattern ensures:
-
-- all DAGs have a unified structure  
-- environment configuration is externalized  
-- pipelines are declarative and reproducible  
-- domain-specific code stays modular and isolated  
-- Airflow dynamically instantiates DAGs at parse time
-
----
-
-# Key Properties
-
-- **Minimal core context** that the MCP Agent always loads first  
-- Fully parameterized Ð no hardcoded environment variables in code  
-- Task logic is injected via a **task_builder(...)** function  
-- Supports both simple tasks and complex multi-task groups  
-
----
-
-# File Structure
-
-- `DAG_DEFINITIONS` Ð declarative definition of pipelines/domains/clients  
-- `ENV_CONFIGS` Ð mapping of environment names to runtime properties  
-- `create_generic_dag_factory(...)` Ð central DAG factory  
-- `generate_all_dags(...)` Ð instantiation loop  
-
----
-
-# Example: Generic Factory Skeleton
-
+## Implementation
 ```python
-from __future__ import annotations
-from datetime import datetime
 from airflow.decorators import dag, task
-from airflow.operators.empty import EmptyOperator
+from airflow.models.variable import Variable
+from airflow.datasets import Dataset
+import pendulum
 
-# ============================================================================
-# 1. PIPELINE DEFINITIONS (Domain-level config)
-# ============================================================================
-
+# =============================================================================
+# 1. CENTRAL CONFIGURATION
+# =============================================================================
+# Configuration specific to each DAG instance (e.g., per tenant)
 DAG_DEFINITIONS = {
-    "clientA": {
-        "prefix": "clientA",
-        "custom_params": {"source": "crm", "mode": "full"},
+    "tenant_a": {
+        "prefix": "tenant_a",
+        "table_name": "source_table_a",
     },
-    "clientB": {
-        "prefix": "clientB",
-        "custom_params": {"source": "erp", "mode": "incremental"},
+    "tenant_b": {
+        "prefix": "tenant_b",
+        "table_name": "source_table_b",
     },
 }
 
-# ============================================================================
-# 2. ENVIRONMENT CONFIGURATION
-# ============================================================================
-
+# Configuration specific to the deployment environment
 ENV_CONFIGS = {
-    "dev": {"gcp_project_id": "project-dev"},
-    "test": {"gcp_project_id": "project-test"},
-    "prod": {"gcp_project_id": "project-prod"},
+    "dev": {
+        "project_id": "my-dev-project",
+        "region": "europe-west1",
+        "service_account": "sa-dev@my-project.iam.gserviceaccount.com",
+    },
+    "prod": {
+        "project_id": "my-prod-project",
+        "region": "europe-west1",
+        "service_account": "sa-prod@my-project.iam.gserviceaccount.com",
+    }
 }
 
-DAG_VERSION = "v1.0.0"
-
-
-# ============================================================================
-# 3. GENERIC DAG FACTORY
-# ============================================================================
-
-def create_generic_dag_factory(
-    dag_prefix: str,
-    dag_version: str,
-    env_name: str,
-    start_date: datetime,
-    custom_params: dict,
-    task_builder=None,
+# =============================================================================
+# 2. DAG FACTORY FUNCTION
+# =============================================================================
+def create_dag_factory(
+    prefix: str,
+    table_name: str,
+    project_id: str,
+    region: str,
+    service_account: str,
 ):
-
-    dag_id = f"{dag_prefix}_{dag_version}"
+    """
+    Factory function to generate a DAG.
+    Arguments are passed explicitly to avoid late binding in loops.
+    """
+    dag_id = f"{prefix}_processing_dag"
+    
+    # Dynamic constants based on arguments
+    dataset_name = f"{prefix}_dataset"
+    target_table = f"{project_id}.{prefix}.{table_name}"
 
     @dag(
         dag_id=dag_id,
-        start_date=start_date,
+        start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
+        schedule=[Dataset(dataset_name)],
         catchup=False,
-        tags=[dag_prefix, env_name, "generic"],
+        tags=[prefix, "generated"],
     )
     def generated_dag():
+        
+        @task(task_id="process_data")
+        def process_task():
+            print(f"Processing {table_name} for {prefix} in {region}")
+            print(f"Using SA: {service_account}")
+            # logic to use target_table...
 
-        start = EmptyOperator(task_id="start")
-
-        if task_builder:
-            # Inject domain-specific logic
-            dynamic_task = task_builder(custom_params)
-        else:
-            @task
-            def noop(params):
-                return params
-
-            dynamic_task = noop(custom_params)
-
-        end = EmptyOperator(task_id="end")
-
-        start >> dynamic_task >> end
+        process_task()
 
     return generated_dag()
 
+# =============================================================================
+# 3. GENERATION LOOP
+# =============================================================================
+# specific environment variable usually set in Airflow UI or Docker
+env = Variable.get("env", default_var="dev") 
+if not (env_vars := ENV_CONFIGS.get(env)):
+    raise ValueError(f"Unknown environment: '{env}'")
 
-# ============================================================================
-# 4. DAG INSTANTIATION LOOP
-# ============================================================================
-
-from airflow.models.variable import Variable
-
-env = Variable.get("env")
-
-if env not in ENV_CONFIGS:
-    raise ValueError(
-        f"Unknown environment '{env}'. Allowed: {list(ENV_CONFIGS.keys())}"
+for key, config in DAG_DEFINITIONS.items():
+    # Call the factory with explicit arguments
+    create_dag_factory(
+        prefix=config["prefix"],
+        table_name=config["table_name"],
+        project_id=env_vars["project_id"],
+        region=env_vars["region"],
+        service_account=env_vars["service_account"],
     )
-
-env_config = ENV_CONFIGS[env]
-
-for name, cfg in DAG_DEFINITIONS.items():
-    create_generic_dag_factory(
-        dag_prefix=cfg["prefix"],
-        dag_version=DAG_VERSION,
-        env_name=env,
-        start_date=datetime(2024, 1, 1),
-        custom_params=cfg["custom_params"],
-        task_builder=None,  # replaced by domain-specific patterns
-    )
+```
