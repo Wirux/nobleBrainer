@@ -183,8 +183,9 @@
       "bases:Create new base": false
     }
   },
-  "active": "48cf59405509d6fc",
+  "active": "478f2d080397622e",
   "lastOpenFiles": [
+    "README.md",
     "patterns/opencode/mcp_output.md",
     "patterns/opencode/mcp_entry.md",
     "patterns/opencode/mcp_sanitization_rules.md",
