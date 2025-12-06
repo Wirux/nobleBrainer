@@ -185,6 +185,9 @@
   },
   "active": "478f2d080397622e",
   "lastOpenFiles": [
+    "meta/mcp_sanitization_rules.md",
+    "meta/mcp_output.md",
+    "meta/mcp_entry.md",
     "airflow/core/pattern_airflow_generic_dag_factory.md",
     "airflow/pattern_airflow_task_group.md",
     "patterns/airflow",
