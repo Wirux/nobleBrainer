@@ -11,10 +11,14 @@
             "id": "48cf59405509d6fc",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "airflow/mapped_xcom_pull.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "mapped_xcom_pull"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "airflow/mapped_xcom_pull.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for mapped_xcom_pull"
             }
           },
           {
@@ -108,11 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "airflow/mapped_xcom_pull.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Outgoing links from mapped_xcom_pull"
             }
           },
           {
@@ -150,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "airflow/mapped_xcom_pull.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of mapped_xcom_pull"
             }
           }
         ]
@@ -178,10 +185,13 @@
   },
   "active": "48cf59405509d6fc",
   "lastOpenFiles": [
-    "dataflow/arch_ingest_architecture.md",
-    "dataflow/ingest_architecture.md",
-    "airflow/dynamic_task_groups.md",
     "airflow/generic_dag_factory.md",
+    "airflow/dynamic_task_groups.md",
+    "dataflow/ingest_architecture.md",
+    "meta/mcp_sanitization_rules.md",
+    "meta/mcp_output.md",
+    "meta/mcp_entry.md",
+    "dataflow/arch_ingest_architecture.md",
     "airflow/mapped_xcom_pull.md",
     "airflow/high/mapped_xcom_pull.md",
     "airflow/high",
@@ -195,9 +205,6 @@
     "airflow/Using ti.xcom_pull for Runtime Parameters.md",
     "airflow/pattern_airflow_task_group.md",
     "dataflow",
-    "meta/mcp_sanitization_rules.md",
-    "meta/mcp_output.md",
-    "meta/mcp_entry.md",
     "airflow/core/pattern_airflow_generic_dag_factory.md",
     "patterns/airflow",
     "Airflow Task Groups and Pools.md",
