@@ -11,14 +11,10 @@
             "id": "48cf59405509d6fc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "dataflow/arch_ingest_architecture.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "arch_ingest_architecture"
+              "title": "New tab"
             }
           }
         ]
@@ -94,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "dataflow/arch_ingest_architecture.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for arch_ingest_architecture"
+              "title": "Backlinks"
             }
           },
           {
@@ -113,12 +108,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "dataflow/arch_ingest_architecture.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from arch_ingest_architecture"
+              "title": "Outgoing links"
             }
           },
           {
@@ -156,13 +150,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "dataflow/arch_ingest_architecture.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of arch_ingest_architecture"
+              "title": "Outline"
             }
           }
         ]
@@ -185,6 +178,8 @@
   },
   "active": "48cf59405509d6fc",
   "lastOpenFiles": [
+    "dataflow/arch_ingest_architecture.md",
+    "dataflow/ingest_architecture.md",
     "airflow/dynamic_task_groups.md",
     "airflow/generic_dag_factory.md",
     "airflow/mapped_xcom_pull.md",
@@ -199,7 +194,6 @@
     "pattern_airflow_mapped_task_xcom_pull.md",
     "airflow/Using ti.xcom_pull for Runtime Parameters.md",
     "airflow/pattern_airflow_task_group.md",
-    "dataflow/arch_ingest_architecture.md",
     "dataflow",
     "meta/mcp_sanitization_rules.md",
     "meta/mcp_output.md",
@@ -215,7 +209,6 @@
     "patterns/opencode/mcp_output.md~",
     "patterns/opencode/generic_mcp_entry.md",
     "patterns/opencode/generic_mcp_sanitization_rules.md",
-    "patterns/opencode/generic_mcp_output.md",
     "patterns/opencode/00_system_prompt.md~",
     "meta/opencode",
     "meta",

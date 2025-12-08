@@ -1,12 +1,12 @@
 ---
 id: d4e5f6a7-b8c9-0123-4567-89abcdef0123
-created: 2025-12-08
 aliases: []
 tags:
   - opencode-generated
   - beam
   - oracle
   - parquet
+created: "2025-12-08"
 description: Parallel Oracle to GCS Parquet extractor pipeline using Apache Beam and Polars for memory-efficient processing.
 language: python
 tech: dataflow
