@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "airflow/pattern_airflow_task_group.md",
+                "file": "dataflow/arch_ingest_architecture.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pattern_airflow_task_group"
+              "title": "arch_ingest_architecture"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "airflow/pattern_airflow_task_group.md",
+                "file": "dataflow/arch_ingest_architecture.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for pattern_airflow_task_group"
+              "title": "Backlinks for arch_ingest_architecture"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "airflow/pattern_airflow_task_group.md",
+                "file": "dataflow/arch_ingest_architecture.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from pattern_airflow_task_group"
+              "title": "Outgoing links from arch_ingest_architecture"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "airflow/pattern_airflow_task_group.md",
+                "file": "dataflow/arch_ingest_architecture.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of pattern_airflow_task_group"
+              "title": "Outline of arch_ingest_architecture"
             }
           }
         ]
@@ -183,13 +183,22 @@
       "bases:Create new base": false
     }
   },
-  "active": "478f2d080397622e",
+  "active": "48cf59405509d6fc",
   "lastOpenFiles": [
+    "airflow/mapped_task_xcom.md",
+    "airflow_xcom_pull_mapped.md",
+    "airflow/airflow_xcom_pull_mapped.md",
+    "patterns/airflow_xcom_pull_mapped.md",
+    "patterns",
+    "pattern_airflow_mapped_task_xcom_pull.md",
+    "airflow/Using ti.xcom_pull for Runtime Parameters.md",
+    "airflow/pattern_airflow_task_group.md",
+    "dataflow/arch_ingest_architecture.md",
+    "dataflow",
     "meta/mcp_sanitization_rules.md",
     "meta/mcp_output.md",
     "meta/mcp_entry.md",
     "airflow/core/pattern_airflow_generic_dag_factory.md",
-    "airflow/pattern_airflow_task_group.md",
     "patterns/airflow",
     "Airflow Task Groups and Pools.md",
     "dag/Airflow_Task_Groups_and_Work_Pools.md",
