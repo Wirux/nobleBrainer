@@ -5,7 +5,7 @@ tags:
   - security
   - privacy
   - best-practices
-description: Strict rules for scrubbing secrets, specific entities, and paths before saving to the Vault.
+description: Strict rules for scrubbing secrets, specific entities, and paths.
 language: Markdown
 tech: mcp
 title: OpenCode Sanitization Rules
@@ -15,26 +15,23 @@ type: config
 # Code Sanitization Rules
 
 **System Instruction:**
-Before saving ANY content to the Vault (via MCP), you must pass the code and metadata through these filters.
+Pass all content through these filters before saving.
 
-## 1. Secrets & Credentials (High Priority)
-Scan the code for potential leaks.
+## 1. Secrets & Credentials (CRITICAL)
 * **API Keys/Tokens**: Replace with `<API_KEY>` or `<TOKEN>`.
 * **Passwords**: Replace with `<PASSWORD>`.
-* **Connection Strings**: Replace specific URIs (e.g., `postgresql://admin:123@10.0.0.1...`) with generic ones: `postgresql://<USER>:<PASS>@<HOST>/<DB>`.
-* **Cloud IDs**: Mask AWS Account IDs or GCP Project IDs if they look real (e.g., `123456789012` -> `<AWS_ACCOUNT_ID>`).
+* **URIs**: `postgres://admin:123@10.0.0.1/db` -> `postgres://<USER>:<PASS>@<HOST>/<DB>`.
+* **Cloud IDs**: `123456789012` -> `<AWS_ACCOUNT_ID>`.
 
 ## 2. Path & Project Anonymization
-If file paths, folder names, or project codes appear in the **description**, **context**, or **code comments**:
-* **Redact Client Names**: Replace specific client/project names (e.g., `Orlen`, `Barclays`, `ClientX`) with `{{CLIENT}}` or `{{PROJECT}}`.
-    * *Example in comment*: `# logic for Orlen migration` -> `# logic for {{CLIENT}} migration`.
-* **Strip Absolute Paths**: Remove local user paths (e.g., `/Users/adamwilczek/...`) entirely.
+* **Client Names**: Replace specific client names (e.g., `Orlen`, `Barclays`) with `{{CLIENT}}`.
+* **Absolute Paths**: Remove `/Users/adamwilczek/...`. Use relative paths or generic placeholders.
 
-## 3. Code Generalization
-* **Refactor Names**: Change highly specific variable names to generic ones unless relevant to the pattern.
-    * `def calculate_orlen_margin(...)` -> `def calculate_margin(...)`
-* **Remove Noise**: Delete boilerplate imports, logging configurations, or standard comments that do not add value to the specific pattern being extracted.
+## 3. Atomic Cleaning (Noise Reduction)
+* **License Headers**: DELETE all Copyright/License headers (e.g., "Copyright 2023 Company X...").
+* **Boilerplate**: Remove standard imports or logging setups unless they are the *core* of the pattern.
+* **Large Comment Blocks**: Remove large commented-out code blocks.
 
 ## 4. Privacy Scrubbing
-* **PII**: Remove names of real people (comments like `// TODO: Adam fix this`).
-* **Internal Networking**: Mask internal IP addresses (e.g., `10.x.x.x` -> `<INTERNAL_IP>`).
+* **PII**: Remove developer names (`// TODO: Adam fix this` -> `// TODO: fix this`).
+* **IPs**: Mask internal IPs (`10.x.x.x` -> `<INTERNAL_IP>`).

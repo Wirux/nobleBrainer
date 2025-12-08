@@ -185,6 +185,12 @@
   },
   "active": "48cf59405509d6fc",
   "lastOpenFiles": [
+    "airflow/dynamic_task_groups.md",
+    "airflow/generic_dag_factory.md",
+    "airflow/mapped_xcom_pull.md",
+    "airflow/high/mapped_xcom_pull.md",
+    "airflow/high",
+    "mapped_task_xcom.md",
     "airflow/mapped_task_xcom.md",
     "airflow_xcom_pull_mapped.md",
     "airflow/airflow_xcom_pull_mapped.md",
@@ -210,14 +216,9 @@
     "patterns/opencode/generic_mcp_entry.md",
     "patterns/opencode/generic_mcp_sanitization_rules.md",
     "patterns/opencode/generic_mcp_output.md",
-    "patterns/opencode/00_system_prompt.md",
-    "Welcome.md",
     "patterns/opencode/00_system_prompt.md~",
-    "patterns/opencode/02_sanitization_rules.md",
-    "patterns/opencode/01_output_template.md",
     "meta/opencode",
     "meta",
-    "dag/Generic DAG Example.md",
     "airflow/core",
     "airflow"
   ]

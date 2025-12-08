@@ -5,7 +5,7 @@ tags:
   - opencode-config
   - template
   - design-pattern
-description: The official markdown structure that must be used for all generated pattern notes.
+description: The official markdown structure for pattern notes, utilizing Obsidian Callouts.
 language: Markdown
 tech: mcp
 title: OpenCode Pattern Template
@@ -15,12 +15,12 @@ type: config
 # Pattern Note Template
 
 **System Instruction:**
-Use the Markdown structure below strictly. Replace content inside `{{...}}` with generated content.
-ensure the YAML Frontmatter is valid.
+Use the structure below. Replace `{{...}}` with content. Use Obsidian Callouts for emphasis.
 
 ```markdown
 ---
 id: {{generate_uuid_v4}}
+created: {{date_YYYY-MM-DD}}
 aliases: []
 tags:
   - opencode-generated
@@ -28,22 +28,28 @@ tags:
   - {{keyword_tag_2}}
 description: {{A concise, one-sentence summary}}
 language: {{programming_language_for_code_block}}
-source: {{sanitized_relative_path}}
 tech: {{airflow | python | sql | docker | bash}}
-title: {{Action-Oriented Title e.g., "Implementing Singleton in DAG Factory"}}
+title: {{Action-Oriented Title}}
 type: {{pattern | snippet | architecture | config | fix}}
 ---
 
-# {{Title: Same as in frontmatter}}
+# {{Title}}
 
-## Context & Problem
-* **Problem:** {{One specific problem this pattern solves. Be concise.}}
-* **Scope:** {{What does this cover? What does it explicitely exclude?}}
+> [!INFO] Context
+> **Problem**: {{Specific problem this solves}}
+> **Scope**: {{What is covered/excluded}}
 
 ## Conceptual Solution
-{{Brief explanation of the *why* and the mechanism. Keep it under 3-4 sentences.}}
+{{Brief explanation of the mechanism. Keep it under 3-4 sentences.}}
 
 ## Implementation
+
 ```{{language}}
 {{code_snippet_containing_ONLY_the_relevant_logic}}
-// Note: Remove unrelated boilerplate. Focus on the pattern logic.
+// Note: Remove unrelated boilerplate.
+```
+
+> [!TIP] Key Takeaways
+> * {{Bullet point 1}}
+> * {{Bullet point 2}}
+```
