@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "airflow/mapped_xcom_pull.md",
+                "file": "terraform/generic_project_pattern.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "mapped_xcom_pull"
+              "title": "generic_project_pattern"
             }
           }
         ]
@@ -185,14 +185,24 @@
   },
   "active": "48cf59405509d6fc",
   "lastOpenFiles": [
-    "airflow/generic_dag_factory.md",
+    "terraform/locals_for_loop_structures.md",
+    "nvim/treesitter_bash_injection_fix.md",
+    "airflow/mapped_xcom_pull.md",
+    "nvim",
     "airflow/dynamic_task_groups.md",
+    "airflow/generic_dag_factory.md",
+    "cicd/ado_gcp_pipeline.md",
     "dataflow/ingest_architecture.md",
     "meta/mcp_sanitization_rules.md",
+    "cicd",
+    "gcp/workload_identity_token_exchange.md",
+    "gcp",
+    "terraform/generic_project_pattern.md",
+    "terraform",
+    "2025-12-09.md",
     "meta/mcp_output.md",
     "meta/mcp_entry.md",
     "dataflow/arch_ingest_architecture.md",
-    "airflow/mapped_xcom_pull.md",
     "airflow/high/mapped_xcom_pull.md",
     "airflow/high",
     "mapped_task_xcom.md",
@@ -209,17 +219,7 @@
     "patterns/airflow",
     "Airflow Task Groups and Pools.md",
     "dag/Airflow_Task_Groups_and_Work_Pools.md",
-    "meta/opencode/mcp_sanitization_rules.md",
-    "README.md",
-    "meta/opencode/mcp_output.md",
-    "meta/opencode/mcp_entry.md",
     "patterns/opencode/mcp_output.md~",
-    "patterns/opencode/generic_mcp_entry.md",
-    "patterns/opencode/generic_mcp_sanitization_rules.md",
-    "patterns/opencode/00_system_prompt.md~",
-    "meta/opencode",
-    "meta",
-    "airflow/core",
-    "airflow"
+    "patterns/opencode/00_system_prompt.md~"
   ]
 }
