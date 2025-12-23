@@ -2,26 +2,36 @@
 id: 131b84f7-1e49-4a3c-b259-d3de39a6d024
 aliases: []
 tags:
-  - opencode-config
   - security
-  - design-pattern
-description: Rules for removing sensitive data and refactoring code before saving to the Vault.
-language: English
+  - privacy
+  - best-practices
+description: Strict rules for scrubbing secrets, specific entities, and paths.
+language: Markdown
+tech: mcp
 title: OpenCode Sanitization Rules
 type: config
 ---
 
 # Code Sanitization Rules
 
-Before saving any code to the Vault via MCP, apply these transformations:
+**System Instruction:**
+Pass all content through these filters before saving.
 
-1.  **Secrets Removal**:
-    * Replace API keys with `<API_KEY>`.
-    * Replace passwords with `<PASSWORD>`.
-    * Replace DB connection strings with `env::var(...)` or generic placeholders.
+## 1. Secrets & Credentials (CRITICAL)
+* **API Keys/Tokens**: Replace with `<API_KEY>` or `<TOKEN>`.
+* **Passwords**: Replace with `<PASSWORD>`.
+* **URIs**: `postgres://admin:123@10.0.0.1/db` -> `postgres://<USER>:<PASS>@<HOST>/<DB>`.
+* **Cloud IDs**: `123456789012` -> `<AWS_ACCOUNT_ID>`.
 
-2.  **Privacy Scrubbing**:
-    * Remove names of real people, internal IP addresses (10.x.x.x), and company-specific domain names.
+## 2. Path & Project Anonymization
+* **Client Names**: Replace specific client names (e.g., `Orlen`, `Barclays`) with `{{CLIENT}}`.
+* **Absolute Paths**: Remove `/Users/adamwilczek/...`. Use relative paths or generic placeholders.
 
-3.  **Generalization**:
-    - [!] Refactor highly specific variable names (e.g., `client_Zalando_config`) to generic ones (e.g., `client_config`) unless the pattern is specifically about that integration.
+## 3. Atomic Cleaning (Noise Reduction)
+* **License Headers**: DELETE all Copyright/License headers (e.g., "Copyright 2023 Company X...").
+* **Boilerplate**: Remove standard imports or logging setups unless they are the *core* of the pattern.
+* **Large Comment Blocks**: Remove large commented-out code blocks.
+
+## 4. Privacy Scrubbing
+* **PII**: Remove developer names (`// TODO: Adam fix this` -> `// TODO: fix this`).
+* **IPs**: Mask internal IPs (`10.x.x.x` -> `<INTERNAL_IP>`).

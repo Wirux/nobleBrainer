@@ -1,27 +1,29 @@
 ---
 id: facade00-fact-0000-0000-000000000001
+created: 2025-12-08
 aliases: []
 tags:
   - opencode-generated
-  - airflow
-  - python
   - dag-factory
+  - environment-config
 description: A pattern for generating multiple Airflow DAGs dynamically using a factory function and centralized configuration to avoid late binding issues.
 language: python
-title: Generic DAG Factory with Environment Configuration
+tech: airflow
+title: Generic DAG Factory
 type: pattern
 ---
 
-# Generic DAG Factory with Environment Configuration
+# Generic DAG Factory
 
-## Context & Problem
-* **Problem:** Creating multiple similar Airflow DAGs (e.g., for different tenants or tables) often leads to code duplication. Using loops to generate DAGs can cause "late binding" issues where all DAGs use the values of the last iteration.
-* **Scope:** Covers the structure of a DAG factory function, centralized environment/DAG configuration, and the generation loop.
+> [!INFO] Context
+> **Problem**: Creating multiple similar Airflow DAGs (e.g., for different tenants) leads to code duplication. Using loops can cause "late binding" issues where all DAGs use values from the last iteration.
+> **Scope**: Covers DAG factory functions, centralized configuration, and generation loops.
 
 ## Conceptual Solution
-Use a **Factory Function** to encapsulate the DAG definition. Pass all dynamic values (company names, table names, project IDs) as arguments to this function. This "freezes" the variables for each DAG instance, preventing late binding. Centralize configuration in `DAG_DEFINITIONS` (per-DAG settings) and `ENV_CONFIGS` (per-environment settings) maps to keep code clean and maintainable.
+Use a **Factory Function** to encapsulate the DAG definition, passing dynamic values (company names, project IDs) as arguments. This "freezes" variables for each instance, preventing late binding. Centralize configuration in maps (`DAG_DEFINITIONS` and `ENV_CONFIGS`) to separate logic from data.
 
 ## Implementation
+
 ```python
 from airflow.decorators import dag, task
 from airflow.models.variable import Variable
@@ -31,7 +33,6 @@ import pendulum
 # =============================================================================
 # 1. CENTRAL CONFIGURATION
 # =============================================================================
-# Configuration specific to each DAG instance (e.g., per tenant)
 DAG_DEFINITIONS = {
     "tenant_a": {
         "prefix": "tenant_a",
@@ -43,7 +44,6 @@ DAG_DEFINITIONS = {
     },
 }
 
-# Configuration specific to the deployment environment
 ENV_CONFIGS = {
     "dev": {
         "project_id": "my-dev-project",
@@ -72,8 +72,6 @@ def create_dag_factory(
     Arguments are passed explicitly to avoid late binding in loops.
     """
     dag_id = f"{prefix}_processing_dag"
-    
-    # Dynamic constants based on arguments
     dataset_name = f"{prefix}_dataset"
     target_table = f"{project_id}.{prefix}.{table_name}"
 
@@ -89,8 +87,7 @@ def create_dag_factory(
         @task(task_id="process_data")
         def process_task():
             print(f"Processing {table_name} for {prefix} in {region}")
-            print(f"Using SA: {service_account}")
-            # logic to use target_table...
+            # Logic using target_table...
 
         process_task()
 
@@ -99,7 +96,6 @@ def create_dag_factory(
 # =============================================================================
 # 3. GENERATION LOOP
 # =============================================================================
-# specific environment variable usually set in Airflow UI or Docker
 env = Variable.get("env", default_var="dev") 
 if not (env_vars := ENV_CONFIGS.get(env)):
     raise ValueError(f"Unknown environment: '{env}'")
@@ -114,3 +110,7 @@ for key, config in DAG_DEFINITIONS.items():
         service_account=env_vars["service_account"],
     )
 ```
+
+> [!TIP] Key Takeaways
+> * **Explicit Arguments**: Passing values into the factory function breaks the closure scope issue common in Python loops.
+> * **Config Separation**: Moving configuration out of the code allows for cleaner environment management.
